@@ -2,8 +2,16 @@ import { useEffect, useState } from "react";
 import { fetchBreeds } from "@utils";
 import { SortOrder } from "@types";
 
-function Filterbar() {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+interface FilterbarProps {
+  handleFilter: (
+    breeds: string,
+    minAge: number,
+    maxAge: number,
+    sort: SortOrder
+  ) => void;
+}
+
+function Filterbar({ handleFilter }: FilterbarProps) {
   const [breeds, setBreeds] = useState<string[]>([]);
   const [selectedBreed, setSelectedBreed] = useState<string>("");
   const [minAge, setMinAge] = useState<number>(0);
@@ -14,10 +22,6 @@ function Filterbar() {
     fetchBreeds().then((breeds) => {
       setBreeds(breeds);
     });
-  };
-
-  const handleFilter = () => {
-    //
   };
 
   useEffect(() => {
@@ -94,7 +98,7 @@ function Filterbar() {
       <div className="mb-4 w-25 items-end flex">
         <button
           className="w-full bg-blue-500 text-white py-3 rounded-md font-bold cursor-pointer"
-          onClick={handleFilter}
+          onClick={() => handleFilter(selectedBreed, minAge, maxAge, order)}
         >
           Filter
         </button>
