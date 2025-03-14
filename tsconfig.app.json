@@ -24,7 +24,9 @@
     "noUncheckedSideEffectImports": true,
     "baseUrl": ".",
     "paths": {
-      "@pages/*": ["./src/pages/*"]
+      "@pages/*": ["./src/pages/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@utils": ["./src/utils/index.ts"]
     }
   }
 }
