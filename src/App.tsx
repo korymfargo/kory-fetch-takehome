@@ -1,8 +1,13 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Login from '@pages/Login'
+
 function App() {
   return (
-    <div className="text-center text-blue-300 font-bold text-xl m-5">
-      Fetch Take Home
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
