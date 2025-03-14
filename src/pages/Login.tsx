@@ -1,11 +1,13 @@
 import { useState } from "react";
 import Logo from "@assets/logo.png";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { RootState, AppDispatch, ActionLogin, ActionLogout } from "@store";
 import { login, logout } from "@utils";
 
 function Login() {
   const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
   const isLoggedIn = useSelector((state: RootState) => state.user.loggedIn);
   const storeUserName = useSelector((state: RootState) => state.user.name);
   const [name, setName] = useState("");
@@ -23,6 +25,9 @@ function Login() {
             email,
           })
         );
+
+        // redirect to search
+        navigate("/search");
       }
     });
   };
@@ -45,7 +50,10 @@ function Login() {
           You are already authorized as {storeUserName}
         </h2>
         <div className="flex justify-center">
-          <button className="w-40 bg-blue-500 text-white p-3 m-3 rounded-md cursor-pointer font-bold">
+          <button
+            className="w-40 bg-blue-500 text-white p-3 m-3 rounded-md cursor-pointer font-bold"
+            onClick={() => navigate("/search")}
+          >
             Search Dogs
           </button>
           <button
