@@ -25,6 +25,7 @@
     "baseUrl": ".",
     "paths": {
       "@pages/*": ["./src/pages/*"],
+      "@components/*": ["./src/components/*"],
       "@assets/*": ["./src/assets/*"],
       "@types": ["./src/types/index.ts"],
       "@store": ["./src/store/index.ts"],

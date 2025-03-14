@@ -1,6 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Login from "@pages/Login";
 import Search from "@pages/Search";
+import RouteGuard from "@components/RouteGuard";
 
 function App() {
   return (
@@ -8,7 +9,16 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/search" element={<Search />} />
+
+        {/* Protected Routes */}
+        <Route
+          path="/search"
+          element={
+            <RouteGuard redirectTo="/login">
+              <Search />
+            </RouteGuard>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

@@ -19,11 +19,16 @@ const userSlice = createSlice({
       state.name = action.payload.name;
       state.email = action.payload.email;
       state.loggedIn = true;
+
+      // save user slice to localstorage
+      localStorage.setItem("user", JSON.stringify(state));
     },
     ActionLogout: (state) => {
       state.name = undefined;
       state.email = undefined;
       state.loggedIn = false;
+
+      localStorage.removeItem("user");
     },
   },
 });
