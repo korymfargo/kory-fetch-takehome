@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "https://frontend-take-home-service.fetch.com/auth/login";
+const baseURL = "https://frontend-take-home-service.fetch.com/";
 
 export const axiosInstance = axios.create({
   baseURL,

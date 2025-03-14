@@ -1,23 +1,63 @@
 import { useState } from "react";
 import Logo from "@assets/logo.png";
-import { axiosInstance } from "@utils";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, AppDispatch, ActionLogin, ActionLogout } from "@store";
+import { login, logout } from "@utils";
 
 function Login() {
+  const dispatch: AppDispatch = useDispatch();
+  const isLoggedIn = useSelector((state: RootState) => state.user.loggedIn);
+  const storeUserName = useSelector((state: RootState) => state.user.name);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
 
-    axiosInstance
-      .post("https://frontend-take-home-service.fetch.com/auth/login", {
-        name,
-        email,
+    login(name, email).then((res) => {
+      if (res.data === "OK") {
+        // success login
+        dispatch(
+          ActionLogin({
+            name,
+            email,
+          })
+        );
+      }
+    });
+  };
+
+  const handleLogout = () => {
+    logout()
+      .then(() => {
+        // remove login information from store
+        dispatch(ActionLogout());
       })
-      .then((res) => {
-        console.log(res);
+      .catch((err) => {
+        console.error("Failed to logout", err);
       });
   };
+
+  if (isLoggedIn) {
+    return (
+      <div className="flex flex-col justify-center items-center min-h-screen">
+        <h2 className="text-white text-2xl m-3 font-bold">
+          You are already authorized as {storeUserName}
+        </h2>
+        <div className="flex justify-center">
+          <button className="w-40 bg-blue-500 text-white p-3 m-3 rounded-md cursor-pointer font-bold">
+            Search Dogs
+          </button>
+          <button
+            className="w-40 bg-blue-500 text-white p-3 m-3 rounded-md cursor-pointer font-bold"
+            onClick={handleLogout}
+          >
+            Logout
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen">

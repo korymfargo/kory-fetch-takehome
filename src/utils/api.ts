@@ -6,3 +6,7 @@ export function login(name: string, email: string) {
     email,
   });
 }
+
+export function logout() {
+  return axiosInstance.post("/auth/logout");
+}
