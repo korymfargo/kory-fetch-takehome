@@ -84,6 +84,7 @@ function Login() {
             </label>
             <input
               type="text"
+              id="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="w-full p-3 border rounded-md"

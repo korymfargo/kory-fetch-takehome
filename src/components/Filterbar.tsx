@@ -1,16 +1,23 @@
 import { useEffect, useState } from "react";
 import { fetchBreeds } from "@utils";
+import { SortOrder } from "@types";
 
 function Filterbar() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [breeds, setBreeds] = useState<string[]>([]);
   const [selectedBreed, setSelectedBreed] = useState<string>("");
   const [minAge, setMinAge] = useState<number>(0);
   const [maxAge, setMaxAge] = useState<number>(50);
+  const [order, setOrder] = useState<SortOrder>(SortOrder.ASC);
 
-  const fetchAllBreeds = async () => {
+  const fetchAllBreeds = () => {
     fetchBreeds().then((breeds) => {
       setBreeds(breeds);
     });
+  };
+
+  const handleFilter = () => {
+    //
   };
 
   useEffect(() => {
@@ -19,34 +26,79 @@ function Filterbar() {
 
   return (
     <div className="w-full shadow-md flex p-5 rounded-md bg-white">
-      <select
-        className="p-2 border rounded"
-        value={selectedBreed}
-        onChange={(e) => setSelectedBreed(e.target.value)}
-      >
-        <option value="">All Breeds</option>
-        {breeds.map((breed) => (
-          <option key={breed} value={breed}>
-            {breed}
-          </option>
-        ))}
-      </select>
+      <div className="mb-4 mr-4 flex-1">
+        <label
+          className="w-full block text-sm font-medium mb-2"
+          htmlFor="breeds"
+        >
+          Breeds
+        </label>
+        <select
+          className="p-2 border rounded w-full"
+          id="breeds"
+          value={selectedBreed}
+          onChange={(e) => setSelectedBreed(e.target.value)}
+        >
+          <option value="">All Breeds</option>
+          {breeds.map((breed) => (
+            <option key={breed} value={breed}>
+              {breed}
+            </option>
+          ))}
+        </select>
+      </div>
 
-      <input
-        type="number"
-        placeholder="Min Age"
-        className="p-2 border rounded-lg w-20"
-        value={minAge}
-        onChange={(e) => setMinAge(parseInt(e.target.value))}
-      />
+      <div className="mb-4 mr-4">
+        <label className="block text-sm font-medium mb-2" htmlFor="minAge">
+          Min Age
+        </label>
+        <input
+          type="number"
+          id="minAge"
+          placeholder="Min Age"
+          className="p-2 border rounded-lg w-30"
+          value={minAge}
+          onChange={(e) => setMinAge(parseInt(e.target.value))}
+        />
+      </div>
 
-      <input
-        type="number"
-        placeholder="Max Age"
-        className="p-2 border rounded-lg w-20"
-        value={maxAge}
-        onChange={(e) => setMaxAge(parseInt(e.target.value))}
-      />
+      <div className="mb-4 mr-4">
+        <label className="block text-sm font-medium mb-2" htmlFor="maxAge">
+          Max Age
+        </label>
+        <input
+          type="number"
+          id="maxAge"
+          placeholder="Max Age"
+          className="p-2 border rounded-lg w-30"
+          value={maxAge}
+          onChange={(e) => setMaxAge(parseInt(e.target.value))}
+        />
+      </div>
+
+      <div className="mb-4 mr-4">
+        <label className="block text-sm font-medium mb-2" htmlFor="order">
+          Sort by Breeds
+        </label>
+        <select
+          className="p-2 border rounded w-25"
+          id="breeds"
+          value={order}
+          onChange={(e) => setOrder(e.target.value as SortOrder)}
+        >
+          <option value={SortOrder.ASC}>A-Z</option>
+          <option value={SortOrder.DESC}>Z-A</option>
+        </select>
+      </div>
+
+      <div className="mb-4 w-25 items-end flex">
+        <button
+          className="w-full bg-blue-500 text-white py-3 rounded-md font-bold cursor-pointer"
+          onClick={handleFilter}
+        >
+          Filter
+        </button>
+      </div>
     </div>
   );
 }
