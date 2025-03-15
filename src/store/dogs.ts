@@ -3,7 +3,7 @@ import { Dog, DogsSlice } from "@types";
 
 const initialState: DogsSlice = {
   dogIds: new Set(),
-  dogs: [],
+  dogs: {},
 };
 
 const dogsSlice = createSlice({
@@ -14,7 +14,7 @@ const dogsSlice = createSlice({
       for (let i = 0; i < action.payload.length; i++) {
         if (!state.dogIds.has(action.payload[i].id)) {
           state.dogIds.add(action.payload[i].id);
-          state.dogs.push(action.payload[i]);
+          state.dogs[action.payload[i].id] = action.payload[i];
         }
       }
     },

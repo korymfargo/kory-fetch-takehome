@@ -8,5 +8,5 @@ export interface UserSlice {
 
 export interface DogsSlice {
   dogIds: Set<string>;
-  dogs: Array<Dog>;
+  dogs: Record<string, Dog>;
 }
