@@ -98,7 +98,10 @@ function Filterbar({ handleFilter, isLoading }: FilterbarProps) {
 
       <div className="mb-4 w-25 items-end flex">
         <button
-          className="w-full bg-blue-500 text-white py-3 rounded-md font-bold cursor-pointer"
+          className={
+            (isLoading ? "bg-gray-500" : "bg-blue-500") +
+            " w-full text-white py-3 rounded-md font-bold cursor-pointer"
+          }
           onClick={() => handleFilter(selectedBreed, minAge, maxAge, order)}
           disabled={isLoading}
         >
