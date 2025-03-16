@@ -1,16 +1,17 @@
 import DogCard from "@components/DogCard";
 import Filterbar from "@components/Filterbar";
 import Navbar from "@components/Navbar";
-import { ActionAddDogs } from "@store";
+import { ActionAddDogs, RootState } from "@store";
 import { Dog, SortOrder } from "@types";
 import { fetchDogs } from "@utils";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 function Search() {
   const dispatch = useDispatch();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const dogs = useSelector((state: RootState) => state.dogs.dogs);
   const [dogIds, setDogIds] = useState<Array<string>>([]);
 
   const saveDogToStore = (dogs: Array<Dog>) => dispatch(ActionAddDogs(dogs));
@@ -27,7 +28,7 @@ function Search() {
     }
 
     setIsLoading(true);
-    fetchDogs({ breeds: [breed], minAge, maxAge, sort }, saveDogToStore)
+    fetchDogs({ breeds: [breed], minAge, maxAge, sort }, saveDogToStore, dogs)
       .then((dogIds) => {
         setDogIds(dogIds);
       })

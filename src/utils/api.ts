@@ -33,7 +33,8 @@ export function fetchBreeds(): Promise<Array<string>> {
 
 export function fetchDogs(
   filter: DogsFilter,
-  saveDogToStore: (dogs: Array<Dog>) => void
+  saveDogToStore: (dogs: Array<Dog>) => void,
+  savedDogs: Record<string, Dog>
 ): Promise<ResponseFetchDog> {
   return new Promise((resolve) => {
     const params = buildParamsfromFilter(filter);
@@ -42,12 +43,17 @@ export function fetchDogs(
         params: params,
       })
       .then((res) => {
+        // just retrieve dogIds which is not available in store
+        const unAvailableDogs = res.data.resultIds.filter(
+          (id) => !savedDogs[id]
+        );
+
         axiosInstance
-          .post<Array<Dog>>("/dogs", res.data.resultIds)
+          .post<Array<Dog>>("/dogs", unAvailableDogs)
           .then((response) => {
             const dogs: Array<Dog> = response.data;
 
-            // Save dogs to store
+            // Save fetched dogs to store
             saveDogToStore(dogs);
 
             resolve(res.data.resultIds);
