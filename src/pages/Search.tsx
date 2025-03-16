@@ -1,24 +1,35 @@
 import DogCard from "@components/DogCard";
 import Filterbar from "@components/Filterbar";
 import Navbar from "@components/Navbar";
-import { Dog } from "@types";
+import { ActionAddDogs } from "@store";
+import { Dog, SortOrder } from "@types";
 import { fetchDogs } from "@utils";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 function Search() {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [dogs, setDogs] = useState<Array<Dog>>([]);
+  const dispatch = useDispatch();
 
-  const handleFilter = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [dogIds, setDogIds] = useState<Array<string>>([]);
+
+  const saveDogToStore = (dogs: Array<Dog>) => dispatch(ActionAddDogs(dogs));
+
+  const handleFilter = (
+    breed: string,
+    minAge: number,
+    maxAge: number,
+    sort: SortOrder
+  ) => {
     if (isLoading) {
       // prevent multiple api calls
       return;
     }
 
     setIsLoading(true);
-    fetchDogs()
-      .then((dogs) => {
-        setDogs(dogs);
+    fetchDogs({ breeds: [breed], minAge, maxAge, sort }, saveDogToStore)
+      .then((dogIds) => {
+        setDogIds(dogIds);
       })
       .finally(() => setIsLoading(false));
   };
@@ -27,10 +38,10 @@ function Search() {
     <div className="max-w-4xl mx-auto p-4 bg-blue-100">
       <Navbar />
 
-      <Filterbar handleFilter={handleFilter} />
+      <Filterbar handleFilter={handleFilter} isLoading={isLoading} />
 
-      {dogs.map((dog) => (
-        <DogCard id={dog.id} key={dog.id} />
+      {dogIds.map((dogId) => (
+        <DogCard id={dogId} key={dogId} />
       ))}
     </div>
   );

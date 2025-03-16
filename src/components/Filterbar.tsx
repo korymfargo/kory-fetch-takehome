@@ -4,14 +4,15 @@ import { SortOrder } from "@types";
 
 interface FilterbarProps {
   handleFilter: (
-    breeds: string,
+    breed: string,
     minAge: number,
     maxAge: number,
     sort: SortOrder
   ) => void;
+  isLoading: boolean;
 }
 
-function Filterbar({ handleFilter }: FilterbarProps) {
+function Filterbar({ handleFilter, isLoading }: FilterbarProps) {
   const [breeds, setBreeds] = useState<string[]>([]);
   const [selectedBreed, setSelectedBreed] = useState<string>("");
   const [minAge, setMinAge] = useState<number>(0);
@@ -99,6 +100,7 @@ function Filterbar({ handleFilter }: FilterbarProps) {
         <button
           className="w-full bg-blue-500 text-white py-3 rounded-md font-bold cursor-pointer"
           onClick={() => handleFilter(selectedBreed, minAge, maxAge, order)}
+          disabled={isLoading}
         >
           Filter
         </button>

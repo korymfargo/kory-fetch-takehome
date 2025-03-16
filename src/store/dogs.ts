@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Dog, DogsSlice } from "@types";
 
 const initialState: DogsSlice = {
-  dogIds: new Set(),
   dogs: {},
 };
 
@@ -12,8 +11,7 @@ const dogsSlice = createSlice({
   reducers: {
     ActionAddDogs: (state, action: PayloadAction<Array<Dog>>) => {
       for (let i = 0; i < action.payload.length; i++) {
-        if (!state.dogIds.has(action.payload[i].id)) {
-          state.dogIds.add(action.payload[i].id);
+        if (state.dogs[action.payload[i].id] === undefined) {
           state.dogs[action.payload[i].id] = action.payload[i];
         }
       }

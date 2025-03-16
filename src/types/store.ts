@@ -7,6 +7,5 @@ export interface UserSlice {
 }
 
 export interface DogsSlice {
-  dogIds: Set<string>;
   dogs: Record<string, Dog>;
 }
