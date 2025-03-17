@@ -18,7 +18,7 @@ function Search() {
 
   const saveDogToStore = (dogs: Array<Dog>) => dispatch(ActionAddDogs(dogs));
 
-  const handleFilter = (
+  const handleFilter = async (
     breed: string,
     minAge: number,
     maxAge: number,
@@ -30,7 +30,11 @@ function Search() {
     }
 
     setIsLoading(true);
-    fetchDogs({ breeds: [breed], minAge, maxAge, sort }, saveDogToStore, dogs)
+    await fetchDogs(
+      { breeds: [breed], minAge, maxAge, sort },
+      saveDogToStore,
+      dogs
+    )
       .then((dogIds) => {
         setDogIds(dogIds);
       })

@@ -87,7 +87,7 @@ function Filterbar({ handleFilter, isLoading }: FilterbarProps) {
         </label>
         <select
           className="p-2 border rounded w-25"
-          id="breeds"
+          id="order"
           value={order}
           onChange={(e) => setOrder(e.target.value as SortOrder)}
         >

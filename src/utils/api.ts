@@ -48,6 +48,13 @@ export function fetchDogs(
           (id) => !savedDogs[id]
         );
 
+        // if all dogs returned by search is available then we don't need to call dogs api to fetch dog data
+        if (unAvailableDogs.length === 0) {
+          resolve(res.data.resultIds);
+
+          return;
+        }
+
         axiosInstance
           .post<Array<Dog>>("/dogs", unAvailableDogs)
           .then((response) => {
