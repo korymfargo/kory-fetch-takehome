@@ -41,4 +41,4 @@ Ensure you have the following installed:
    yarn dev
    ```
 
-The app should now be running at `http://localhost:5173`.
+The app should now be running at `http://localhost:5173/kory-fetch-takehome`.
