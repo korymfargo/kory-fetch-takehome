@@ -50,7 +50,10 @@ export function fetchDogs(
 
         // if all dogs returned by search is available then we don't need to call dogs api to fetch dog data
         if (unAvailableDogs.length === 0) {
-          resolve(res.data.resultIds);
+          resolve({
+            ids: res.data.resultIds,
+            total: res.data.total,
+          });
 
           return;
         }
@@ -63,16 +66,16 @@ export function fetchDogs(
             // Save fetched dogs to store
             saveDogToStore(dogs);
 
-            resolve(res.data.resultIds);
+            resolve({ ids: res.data.resultIds, total: res.data.total });
           })
           .catch((err) => {
             console.error("Failed to fetch dogs!", err);
-            resolve([]);
+            resolve({ ids: [], total: 0 });
           });
       })
       .catch((err) => {
         console.error("Failed to fetch dogs!", err);
-        resolve([]);
+        resolve({ ids: [], total: 0 });
       });
   });
 }
@@ -84,7 +87,10 @@ function buildParamsfromFilter(filter: DogsFilter) {
     ageMax?: number;
     sort?: string;
     from?: number;
-  } = {};
+    size?: number;
+  } = {
+    size: 25, // want to make it static and pass to params to make sure even api default changes
+  };
 
   if (filter.breeds && filter.breeds.filter((v) => !!v).length > 0) {
     params.breeds = [...filter.breeds];

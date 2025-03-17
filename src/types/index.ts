@@ -12,6 +12,7 @@ export interface Dog {
   age: number;
   zip_code: string;
   breed: string;
+  isFavourite: boolean;
 }
 
 export interface ResponseSearchDog {
@@ -20,7 +21,10 @@ export interface ResponseSearchDog {
   next: string;
 }
 
-export type ResponseFetchDog = Array<string>;
+export type ResponseFetchDog = {
+  ids: Array<string>;
+  total: number;
+}
 
 export interface DogsFilter {
   breeds?: string[];
@@ -28,4 +32,5 @@ export interface DogsFilter {
   maxAge?: number;
   sort?: SortOrder;
   from?: number;
+  size?: number;
 }
