@@ -13,13 +13,20 @@ function DogCard({ id }: DogCardProps) {
   }
 
   return (
-    <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white">
-      <img className="w-full h-48 object-cover" src={dog.img} alt={dog.name} />
-      <div className="px-6 py-4">
-        <div className="font-bold text-xl mb-2">{dog.name}</div>
-        <p className="text-gray-700 text-base">Breed: {dog.breed}</p>
-        <p className="text-gray-700 text-base">Age: {dog.age} years</p>
-        <p className="text-gray-700 text-base">Zip Code: {dog.zip_code}</p>
+    <div className="flex items-center w-full p-4 my-2 rounded-lg cursor-pointer hover:bg-gray-50 transition">
+      {/* Dog Image */}
+      <img
+        className="w-16 h-16 rounded-md object-cover mr-4"
+        src={dog.img}
+        alt={dog.name}
+      />
+
+      {/* Dog Details */}
+      <div className="flex-1">
+        <h3 className="font-bold text-lg">{dog.name}</h3>
+        <p className="text-gray-600 text-sm">Breed: {dog.breed}</p>
+        <p className="text-gray-600 text-sm">Age: {dog.age} years</p>
+        <p className="text-gray-600 text-sm">Zip Code: {dog.zip_code}</p>
       </div>
     </div>
   );

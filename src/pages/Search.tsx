@@ -41,9 +41,13 @@ function Search() {
 
       <Filterbar handleFilter={handleFilter} isLoading={isLoading} />
 
-      {dogIds.map((dogId) => (
-        <DogCard id={dogId} key={dogId} />
-      ))}
+      <div className="flex flex-row">
+        <div className="">
+          {dogIds.map((dogId) => (
+            <DogCard id={dogId} key={dogId} />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
