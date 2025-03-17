@@ -9,7 +9,7 @@ import App from "./App.tsx";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
+      <BrowserRouter basename="/kory-fetch-takehome">
         <App />
       </BrowserRouter>
     </Provider>
