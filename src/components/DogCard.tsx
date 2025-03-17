@@ -11,7 +11,7 @@ function DogCard({ id, handleClick }: DogCardProps) {
 
   const dog = useSelector((state: RootState) => state.dogs.dogs[id]);
 
-  const handleFavourite = (event: MouseEvent, isFav: boolean) => {
+  const handleFavourite = (event: React.MouseEvent<SVGSVGElement>, isFav: boolean) => {
     event.stopPropagation();
 
     if (!id) {
