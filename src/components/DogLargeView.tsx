@@ -17,7 +17,7 @@ function DogLargeView({ id }: DogLargeViewProps) {
   }
 
   return (
-    <div className="max-w-md rounded overflow-hidden shadow-lg ml-5 my-2 p-5 bg-white transition-[max-width] duration-500 ease-in-out">
+    <div className="max-w-md rounded overflow-hidden shadow-lg ml-5 p-5 bg-white transition-[max-width] duration-500 ease-in-out">
       <div className="min-w-72">
         <img
           className="w-72 h-auto object-cover"

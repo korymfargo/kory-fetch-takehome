@@ -15,7 +15,7 @@ function DogCard({ id, handleClick }: DogCardProps) {
 
   return (
     <div
-      className="flex items-center w-full p-4 my-2 rounded-lg cursor-pointer hover:bg-gray-50 transition"
+      className="flex items-center w-full p-4 rounded-lg cursor-pointer hover:bg-gray-50 transition"
       onClick={() => handleClick(id)}
     >
       {/* Dog Image */}

@@ -46,17 +46,18 @@ function Search() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-4 bg-blue-100">
+    <div className="flex flex-col max-h-screen max-w-4xl mx-auto p-4 bg-blue-100">
       <Navbar />
 
       <Filterbar handleFilter={handleFilter} isLoading={isLoading} />
 
-      <div className="flex flex-row">
-        <div className="flex-1">
+      <div className="flex-1 my-2 flex flex-row overflow-hidden">
+        <div className="flex-1 max-h-full overflow-y-auto">
           {dogIds.map((dogId) => (
             <DogCard id={dogId} key={dogId} handleClick={handleSelectDog} />
           ))}
         </div>
+
         <DogLargeView id={selectedDog} />
       </div>
     </div>
