@@ -13,23 +13,31 @@ function Login() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    login(name, email).then((res) => {
-      if (res.data === "OK") {
-        // success login
-        dispatch(
-          ActionLogin({
-            name,
-            email,
-          })
-        );
+    const success = await login(name, email)
+      .then((res) => {
+        if (res.data === "OK") {
+          // success login
+          dispatch(
+            ActionLogin({
+              name,
+              email,
+            })
+          );
 
-        // redirect to search
-        navigate("/search");
-      }
-    });
+          return true;
+        }
+        return false;
+      })
+      .catch((err) => {
+        console.error("Failed to login", err);
+        return false;
+      });
+
+    // redirect to search
+    if (success) navigate("/search");
   };
 
   const handleLogout = () => {

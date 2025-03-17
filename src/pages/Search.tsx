@@ -1,4 +1,5 @@
 import DogCard from "@components/DogCard";
+import DogLargeView from "@components/DogLargeView";
 import Filterbar from "@components/Filterbar";
 import Navbar from "@components/Navbar";
 import { ActionAddDogs, RootState } from "@store";
@@ -13,6 +14,7 @@ function Search() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const dogs = useSelector((state: RootState) => state.dogs.dogs);
   const [dogIds, setDogIds] = useState<Array<string>>([]);
+  const [selectedDog, setSelectedDog] = useState<string | undefined>();
 
   const saveDogToStore = (dogs: Array<Dog>) => dispatch(ActionAddDogs(dogs));
 
@@ -35,6 +37,10 @@ function Search() {
       .finally(() => setIsLoading(false));
   };
 
+  const handleSelectDog = (id: string) => {
+    setSelectedDog((prev) => (prev === id ? undefined : id));
+  };
+
   return (
     <div className="max-w-4xl mx-auto p-4 bg-blue-100">
       <Navbar />
@@ -42,11 +48,12 @@ function Search() {
       <Filterbar handleFilter={handleFilter} isLoading={isLoading} />
 
       <div className="flex flex-row">
-        <div className="">
+        <div className="flex-1">
           {dogIds.map((dogId) => (
-            <DogCard id={dogId} key={dogId} />
+            <DogCard id={dogId} key={dogId} handleClick={handleSelectDog} />
           ))}
         </div>
+        <DogLargeView id={selectedDog} />
       </div>
     </div>
   );

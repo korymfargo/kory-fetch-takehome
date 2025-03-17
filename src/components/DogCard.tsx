@@ -3,9 +3,10 @@ import { useSelector } from "react-redux";
 
 interface DogCardProps {
   id: string;
+  handleClick: (id: string) => void;
 }
 
-function DogCard({ id }: DogCardProps) {
+function DogCard({ id, handleClick }: DogCardProps) {
   const dog = useSelector((state: RootState) => state.dogs.dogs[id]);
 
   if (!dog) {
@@ -13,7 +14,10 @@ function DogCard({ id }: DogCardProps) {
   }
 
   return (
-    <div className="flex items-center w-full p-4 my-2 rounded-lg cursor-pointer hover:bg-gray-50 transition">
+    <div
+      className="flex items-center w-full p-4 my-2 rounded-lg cursor-pointer hover:bg-gray-50 transition"
+      onClick={() => handleClick(id)}
+    >
       {/* Dog Image */}
       <img
         className="w-16 h-16 rounded-md object-cover mr-4"
