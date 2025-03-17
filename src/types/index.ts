@@ -26,6 +26,10 @@ export type ResponseFetchDog = {
   total: number;
 }
 
+export type ResponseMatchDog = {
+  match: string;
+}
+
 export interface DogsFilter {
   breeds?: string[];
   minAge?: number;

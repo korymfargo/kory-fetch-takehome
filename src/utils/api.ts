@@ -3,6 +3,7 @@ import {
   Dog,
   DogsFilter,
   ResponseFetchDog,
+  ResponseMatchDog,
   ResponseSearchDog,
   SortOrder,
 } from "@types";
@@ -16,6 +17,12 @@ export function login(name: string, email: string) {
 
 export function logout() {
   return axiosInstance.post("/auth/logout");
+}
+
+export function fetchMatch(dogIds: string[]): Promise<ResponseMatchDog> {
+  return axiosInstance
+    .post<ResponseMatchDog>("/dogs/match", dogIds)
+    .then((res) => res.data);
 }
 
 export function fetchBreeds(): Promise<Array<string>> {

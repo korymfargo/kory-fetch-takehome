@@ -24,7 +24,7 @@ function Navbar() {
   };
 
   return (
-    <div className="flex justify-between items-center">
+    <div className="w-full flex justify-between items-center">
       <div className="flex items-center">
         <img src={Logo} alt="Dog Logo 1" className="w-10 h-10" />
         <h1 className="text-2xl font-bold text-center m-4 text-blue-600">

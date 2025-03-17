@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "@pages/Login";
+import Match from "@pages/Match";
 import Search from "@pages/Search";
 import RouteGuard from "@components/RouteGuard";
 import { useAPIGuard } from "@utils";
@@ -18,6 +19,15 @@ function App() {
         element={
           <RouteGuard redirectTo="/login">
             <Search />
+          </RouteGuard>
+        }
+      />
+
+      <Route
+        path="/match"
+        element={
+          <RouteGuard redirectTo="/login">
+            <Match />
           </RouteGuard>
         }
       />

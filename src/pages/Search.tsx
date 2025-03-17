@@ -93,7 +93,7 @@ function Search() {
           ))}
         </div>
 
-        <DogLargeView id={selectedDog} />
+        <DogLargeView id={selectedDog} showFavourite showMatchBtn />
       </div>
       {/* pagination */}
       {totalItemCount > pageSize && (
