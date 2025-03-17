@@ -12,4 +12,4 @@ export const store = configureStore({
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 export { ActionLogin, ActionLogout } from "./user";
-export { ActionAddDogs } from "./dogs";
+export { ActionAddDogs, ActionSetFavourite } from "./dogs";

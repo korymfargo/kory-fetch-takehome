@@ -1,14 +1,31 @@
-import { RootState } from "@store";
-import { useSelector } from "react-redux";
+import { RootState, ActionSetFavourite } from "@store";
+import { useDispatch, useSelector } from "react-redux";
 
 interface DogLargeViewProps {
   id: string | undefined;
 }
 
 function DogLargeView({ id }: DogLargeViewProps) {
+  const dispatch = useDispatch();
+
   const dog = useSelector((state: RootState) =>
     id ? state.dogs.dogs[id] : undefined
   );
+
+  const handleFavourite = (isFav: boolean) => {
+    if (!id) {
+      console.error("Dog Id is not provided!");
+
+      return;
+    }
+
+    dispatch(
+      ActionSetFavourite({
+        id,
+        value: isFav,
+      })
+    );
+  };
 
   if (!dog || !id) {
     return (
@@ -30,9 +47,9 @@ function DogLargeView({ id }: DogLargeViewProps) {
           <p className="text-gray-700 text-base">Age: {dog.age} years</p>
           <p className="text-gray-700 text-base">Zip Code: {dog.zip_code}</p>
           <button
-            onClick={() => 0}
+            onClick={() => handleFavourite(!dog.isFavourite)}
             className={
-              "flex items-center justify-center px-4 py-2 mt-4 cursor-pointer rounded-lg transition-colors duration-300 focus:outline-none " + 
+              "flex items-center justify-center px-4 py-2 mt-4 cursor-pointer rounded-lg transition-colors duration-300 focus:outline-none " +
               (dog.isFavourite
                 ? "bg-red-500 text-white hover:bg-red-600"
                 : "bg-gray-200 text-gray-600 hover:bg-gray-300")

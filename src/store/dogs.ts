@@ -16,8 +16,17 @@ const dogsSlice = createSlice({
         }
       }
     },
+    ActionSetFavourite: (
+      state,
+      action: PayloadAction<{
+        id: string;
+        value: boolean;
+      }>
+    ) => {
+      state.dogs[action.payload.id].isFavourite = action.payload.value;
+    },
   },
 });
 
-export const { ActionAddDogs } = dogsSlice.actions;
+export const { ActionAddDogs, ActionSetFavourite } = dogsSlice.actions;
 export default dogsSlice;
