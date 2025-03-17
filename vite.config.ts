@@ -16,4 +16,5 @@ export default defineConfig({
       "@utils": path.resolve(__dirname, "src/utils/index.ts"),
     },
   },
+  base: "/"
 });
